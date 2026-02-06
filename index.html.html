@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine?</title>
+<style>
+    body {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: #2c2c2c;
+        padding-top: 10%;
+        overflow: hidden;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    p {
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+    .note {
+        font-size: 1em;
+        opacity: 0.8;
+    }
+    button {
+        font-size: 1.2em;
+        padding: 15px 25px;
+        margin: 15px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        position: relative;
+    }
+    .yes {
+        background-color: #ff4d6d;
+        color: white;
+    }
+    .no {
+        background-color: #adb5bd;
+    }
+    .date-btn {
+        background-color: #ff8fab;
+        color: white;
+    }
+    .heart {
+        position: absolute;
+        color: rgba(255, 0, 80, 0.4);
+        font-size: 20px;
+        animation: floatUp 6s linear infinite;
+    }
+    @keyframes floatUp {
+        from { transform: translateY(100vh); opacity: 1; }
+        to { transform: translateY(-10vh); opacity: 0; }
+    }
+</style>
+<script>
+let speed = 1;
+
+function accepted() {
+    document.body.innerHTML = `
+        <h1>Correct answer, Joey 💖</h1>
+        <p>Valentine’s date is officially happening 😌</p>
+        <p>Choose the day:</p>
+        <button class="date-btn" onclick="chosenDate('13th')">13th 💕</button>
+        <button class="date-btn" onclick="chosenDate('15th')">15th 💕</button>
+        <p class="note">Date details will be communicated to you shortly 😉</p>
+    `;
+}
+
+function chosenDate(day) {
+    document.body.innerHTML = `
+        <h1>Perfect choice 💘</h1>
+        <p>The <strong>${day}</strong> it is 😌</p>
+        <p class="note">Now sit tight… details coming soon 😉</p>
+    `;
+}
+
+function moveButton(btn) {
+    speed += 0.5;
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    btn.style.position = "absolute";
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+    btn.style.transition = `${0.3 / speed}s`;
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 500);
+</script>
+</head>
+<body>
+    <h1>Joey, will you be my Valentine? 💘</h1>
+    <p>
+        We won’t make it on the 14th,<br>
+        so our date will be on the <strong>13th or 15th</strong> 😌
+    </p>
+    <button class="yes" onclick="accepted()">YES 💕</button>
+    <button class="no" onmouseover="moveButton(this)">NO 🙃</button>
+</body>
+</html>
